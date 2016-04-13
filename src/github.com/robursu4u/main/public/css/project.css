@@ -1,0 +1,97 @@
+body {
+  background: #fff;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-family: Verdana, Arial, Serif; 
+  font-weight: 300;
+  font-size: 1em;
+  line-height: 1.5em;
+  color: #8d9aa5;
+}
+
+/*Homepage*/
+
+#title_enter_id {
+  font-family: Verdana,Arial,serif;
+  text-align: center;
+  font-size: 50;
+  color: #006600;
+}
+
+#title_create_id {
+  font-family: Verdana,Arial,serif;
+  text-align: center;
+  font-size: 50;
+  color: #ff4000;
+}
+
+#enter_login_div {
+  text-align: center;
+}
+
+#enter_login {
+  font-size: 30;
+}
+
+#submit_login {
+  font-size: 35;
+}
+
+/*Create login stuff*/
+#create_id_div {
+  border-width: 5px;	
+  border-style: dotted;
+  border-color: #00EB76;
+}
+
+#create_login {
+  font-size: 30;
+}
+
+#submit_create_login {
+  font-size: 35;
+}
+
+/*Rob-Robot Stuff*/
+#div_robot {
+  border-width: 5px;	
+  border-style: dotted;
+  border-color: #00EB76;
+}
+
+#title {
+  font-family: Verdana, Arial, Serif; 
+  text-align: center;
+  font-size: 3.8em;
+  color: #00EB76;
+  
+}
+
+#button_robot {
+  position: relative;
+  margin: 0 auto;
+  display: block;
+}
+
+#go_away_button {
+  position: relative;
+  margin: 0 auto;
+  display: block;
+}
+
+#robot {
+  position: relative; 
+  margin: 0 auto;
+  display: block;
+}
+
+#robot_talk_box {
+   position: relative; 
+   text-align: center;
+   font-family: Verdana, Arial;
+   font-size: 35px;
+   font-weight: bold;
+   color: #FF0000;
+   line-height: 120%;
+}
