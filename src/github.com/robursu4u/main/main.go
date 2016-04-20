@@ -2,8 +2,6 @@ package main
 
 import (
 	"flag"
-	//"github.com/gorilla/mux"
-	//"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -11,7 +9,6 @@ import (
 func main() {
 	port := flag.Int("port", 8080, "port running main.go server")
 
-	//Not recognizing routes.go file...
 	router := NewRouter()
 
 	//Console log and port to run on
