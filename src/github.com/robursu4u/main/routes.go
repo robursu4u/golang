@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+//Router structure
 type Route struct {
 	Name        string
 	Method      string
@@ -35,8 +36,11 @@ func NewRouter() *mux.Router {
 
 var routes = Routes{
 	Route{
+		//Function name established in handlers.go file
 		"Public",
+		//This is request to "get" info from server or wherever
 		"GET",
+		//link with web address. "localhost:8080/" in this case
 		"/",
 		Public,
 	},
