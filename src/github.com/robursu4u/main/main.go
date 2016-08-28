@@ -127,20 +127,6 @@ func User_login(res http.ResponseWriter, req *http.Request) {
 		} else {
 			http.Redirect(res, req, "/welcome.html", 302)
 			fmt.Println("You have logged in.")
-
-			t := template.New("export_username")
-			t, _ = t.ParseFiles("tmpl/welcome.html", "Hello")
-
-			p := User_struct{Username: "Bobbby Ursu"}
-			t.Execute(res, p)
-
-			/*
-				if t == nil {
-					fmt.Println("Nope, its NIL")
-				} else {
-					t.Execute(res, vars)
-				}
-			*/
 		}
 	}
 }
