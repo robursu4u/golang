@@ -16,7 +16,8 @@ If you want to run locally:
 1. Download and extract the files. 
 2. Go into src/github.com/robursu4u/main/main.go and change ":80" to ":3000"
 3. Install Go (https://golang.org/doc/install)
-4. $go run main.go in 
+4. $go run main.go 
+5. Go to localhost:3000 in your browser.
 
 
 
