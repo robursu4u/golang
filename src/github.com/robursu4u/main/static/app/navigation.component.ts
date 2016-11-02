@@ -53,8 +53,9 @@ import { WelcomeComponent } from './welcome.component';
   
   <login-module></login-module>
 
-
 </div>
+
+
 
 </main>
   `,
@@ -68,10 +69,15 @@ import { WelcomeComponent } from './welcome.component';
       z-index: 1;
       top: 10%;
       left: 0;
+      width: 12%;
       padding-left: 10px;
       padding-right: 10px;
       background-color: #272b30;
-
+    }
+    .everything_else_container{
+      position: relative;
+      padding: 40px;
+      width: 100%;
     }
     .nav{
       font-family: 'Noir', Verdana, Arial;
@@ -90,20 +96,14 @@ import { WelcomeComponent } from './welcome.component';
       position: relative;
       right: 53%;
     }
-    .everything_else_container{
-      z-index: -1;
-      float: right;
-      padding: 40px;
-      width: 100%;
-    }
     .audio_class{
       border-bottom: solid;
       border-width: 8px;
       border-color: #0dba83;
       position: fixed;
-      width: 100%;
+      left: 0;
+      width: 98%;
       background-color: #272b30;
-      position: fixed; 
       z-index: 1;
       top: 0;
       left: 0;
