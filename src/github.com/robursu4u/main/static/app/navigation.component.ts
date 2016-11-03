@@ -30,7 +30,8 @@ import { WelcomeComponent } from './welcome.component';
 <main>
 
 <div class="nav_container_outside">
-  <div class="nav_containter_inside">
+  
+  <div class="nav_container_inside">
     <h1 class="nav">Welcome</h1>
     <horizontal-separator class="nav_horizontal"></horizontal-separator>
     <h1 class="nav">Listen Now</h1>
@@ -40,17 +41,24 @@ import { WelcomeComponent } from './welcome.component';
     <h1 class="nav">Contact</h1>
     <horizontal-separator class="nav_horizontal"></horizontal-separator>
   </div>
-</div>
 
+</div>
 
 
 <div class="everything_else_container">
+
   <div class="welcome_container"><welcome-component></welcome-component></div>
+
   <div class="horizontal_main_page"><horizontal-separator></horizontal-separator></div>
+
   <podcast-list></podcast-list>
+
   <div class="horizontal_main_page"><horizontal-separator></horizontal-separator></div>
+  
   <login-module></login-module>
+
 </div>
+
 
 </main>
   `,
@@ -62,6 +70,17 @@ import { WelcomeComponent } from './welcome.component';
       height: 100%; 
       position: fixed; 
       z-index: 1;
+      top: 10%;
+      left: 0;
+      width: 12%;
+      padding-left: 10px;
+      padding-right: 10px;
+      background-color: #272b30;
+    }
+    .everything_else_container{
+      position: relative;
+      padding: 40px;
+      width: 100%;
       top: 0;
       left: 0;
       margin-right: 40px;
@@ -103,12 +122,12 @@ import { WelcomeComponent } from './welcome.component';
       border-color: #0dba83;
       position: fixed;
       left: 0;
+      width: 98%;
       width: 96%;
       background-color: #272b30;
       z-index: 1;
       top: 0;
       left: 0;
-
     }
   `]
 })
