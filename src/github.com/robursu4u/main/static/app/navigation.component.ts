@@ -65,7 +65,7 @@ import { WelcomeComponent } from './welcome.component';
       top: 0;
       left: 0;
       margin-right: 40px;
-      padding-left: 10px;
+      padding-left: 11px;
       background-color: #272b30;
     }
     .nav_containter_inside {
