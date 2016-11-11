@@ -8,44 +8,32 @@ import {Cast} from './cast';
   template: `
 
 
-<div class="audio_container"><paper-audio-player src={{audio}} title={{cast_title}} ></paper-audio-player></div>
+<div class="audio_container"><paper-audio-player src={{current_audio}} title={{current_title}} ></paper-audio-player></div>
 
 <main>
 
-  <div class="table_container">
-    <table class="table_style">
+  <div class="table_row">
 
-      <th><div class="table_header">Listen</div></th>
-      <th><div class="table_header">#</div></th>
-      <th><div class="table_header">Title</div></th> 
-      <th><div class="table_header">Date</div></th>
+    <div class="table_column">
+      <div class="table_header">#</div>
+      <div *ngFor="let cast of casts" class="table_list">{{cast.order}}</div>
+    </div>
 
-      <tr>
-        <td>
-          <li >
-            <div class="table_list"><button (click)="onClickMe0()">Listen Now</button></div>
-            <div class="table_list"><button (click)="onClickMe1()">Listen Now</button></div>
+    <div class="table_column">
+      <div class="table_header">Title</div>
+      <div *ngFor="let cast of casts" class="table_list">{{cast.title}}</div>
+    </div>
 
-          </li>
-        </td>     
-    		<td>
-          <li *ngFor="let cast of casts">
-            <div class="table_list">{{cast.order}}</div>
-          </li>
-        </td>
-    		<td>
-          <li *ngFor="let cast of casts">
-            <div class="table_list">{{cast.title}}</div>
-          </li>
-        </td>
-    		<td>
-          <li *ngFor="let cast of casts">
-            <div class="table_list">{{cast.date}}</div>
-          </li>
-        </td>
-    	</tr>
+    <div class="table_column">
+      <div class="table_header">Date</div>
+      <div *ngFor="let cast of casts" class="table_list">{{cast.date}}</div>
+    </div>
     
-    </table>
+    <div class="table_column">
+      <div class="table_header">Listen</div>
+      <div *ngFor="let cast of casts" class="list_button"><button (click)="selectAudio(cast)">Listen Now</button></div>
+    </div>  
+
   </div>
 
 </main>
@@ -55,17 +43,23 @@ import {Cast} from './cast';
       position: fixed;
       z-index: 2;
       top: 0;
-      left: -1%;
-      width: 101%;
+      left: 0;
+      width: 100%;
     }
-    li{
-      list-style-type: none;
+    button{
+      border-radius: 10px;
     }
-  	.table_style{
-  	  width: 100%;
-  	}
-    .table_container{
-      position: relative;
+    .table_row{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font:  30px 'Noir';
+      width: 810px;
+    }
+    .table_column{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       font:  30px 'Noir';
     }
     .table_header{
@@ -74,17 +68,24 @@ import {Cast} from './cast';
       border-right-style: double;
       border-color: #0dba83;
       border-width: 8px;
-      padding: 5px;
+      padding: 8px;
       color: #0dba83;
       font-size: 50px; 
       text-align: center;
     }
+    .list_button{
+      font-size: 30px; 
+      text-align: center;
+      padding: 10px;
+      border-bottom-style: solid;
+      border-color: #0dba83;
+      border-width: 5px;
+      color: #8a2be2;
+    }
     .table_list{
       font-size: 30px; 
       text-align: center;
-      padding: 8px;
-      border-left-style: solid;
-      border-right-style: solid;
+      padding: 13px;
       border-bottom-style: solid;
       border-color: #0dba83;
       border-width: 5px;
@@ -95,23 +96,18 @@ import {Cast} from './cast';
 export class PodcastComponent {
   
   casts = [
-    new Cast(1, 'Test Title for Bobcast', '10-14-2016', 'Robert, Joe, Jill, Dylan'),
-    new Cast(2, 'Revenge of harambe', '10-25-2016', 'Ghost council of Harambe')
+  { order: 1, title: 'Test Title for Bobcast', date: '10-14-2016', audio: './audio/eskmo.mp3', people: 'Robert, Joe, Jill, Dylan'},
+  { order: 2, title: 'Dealing with it', date: '10-15-2016', audio: './audio/song.mp3', people: 'All of america'}
   ];
 
   audio = '';
+  current_audio = '';
+  current_title = 'Select a cast in the "Listen Now" section!';
 
-  cast_title = "Select a cast in the 'Listen Now' section!";
-
-  onClickMe0() {
-    this.audio = './audio/eskmo.mp3';
-    this.cast_title = "Test Title for Bobcast";
+  selectAudio(cast) {
+    this.current_audio = cast.audio;
+    this.current_title = cast.title;
+    console.log(this.current_audio);
   }
-  onClickMe1() {
-    this.audio = './audio/song.mp3';
-    this.cast_title = "Revenge of harambe";
-  }
-
-  //@Input() cast: Cast;
   
 }

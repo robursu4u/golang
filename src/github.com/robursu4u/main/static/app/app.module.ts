@@ -5,6 +5,7 @@ import { LoginComponent } from './login.component';
 import { PodcastComponent } from './podcast.component';
 import { NavigationComponent } from './navigation.component';
 import { WelcomeComponent } from './welcome.component';
+import { GateComponent } from './gate.component';
 
 
 
@@ -16,6 +17,12 @@ import { WelcomeComponent } from './welcome.component';
 })
 export class HorizontalModule {}
 
+@NgModule({
+  imports: [ BrowserModule ],
+  declarations: [ GateComponent ],
+  bootstrap: [ GateComponent ]
+})
+export class GateModule {}
 
 @NgModule({
   imports: [ BrowserModule ],
@@ -35,7 +42,7 @@ export class LoginModule {}
   imports: [ BrowserModule ],
   declarations: [ PodcastComponent ],
   bootstrap: [ PodcastComponent ],
-  //Required for paper audio module I downloaded from github
+  //Required for paper-audio-module
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class PodcastModule {}
@@ -43,9 +50,9 @@ export class PodcastModule {}
 @NgModule({
   imports: [ BrowserModule],
   //Declare components for Nav component to recognize other components
-  declarations: [ NavigationComponent, HorizontalComponent, LoginComponent, PodcastComponent, WelcomeComponent ],
+  declarations: [ NavigationComponent, HorizontalComponent, LoginComponent, PodcastComponent, WelcomeComponent, GateComponent ],
   bootstrap: [ NavigationComponent ],
- //Need to place "CUSTOM_ELEMENTS_SCHEMA " when PodcastComponent (because paper-audio-player element)
+ //Need to place "CUSTOM_ELEMENTS_SCHEMA " when using PodcastComponent (because paper-audio-player element)
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class NavigationModule {}

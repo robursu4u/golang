@@ -15,6 +15,7 @@ var login_component_1 = require('./login.component');
 var podcast_component_1 = require('./podcast.component');
 var navigation_component_1 = require('./navigation.component');
 var welcome_component_1 = require('./welcome.component');
+var gate_component_1 = require('./gate.component');
 var HorizontalModule = (function () {
     function HorizontalModule() {
     }
@@ -29,6 +30,20 @@ var HorizontalModule = (function () {
     return HorizontalModule;
 }());
 exports.HorizontalModule = HorizontalModule;
+var GateModule = (function () {
+    function GateModule() {
+    }
+    GateModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule],
+            declarations: [gate_component_1.GateComponent],
+            bootstrap: [gate_component_1.GateComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], GateModule);
+    return GateModule;
+}());
+exports.GateModule = GateModule;
 var WelcomeModule = (function () {
     function WelcomeModule() {
     }
@@ -65,7 +80,7 @@ var PodcastModule = (function () {
             imports: [platform_browser_1.BrowserModule],
             declarations: [podcast_component_1.PodcastComponent],
             bootstrap: [podcast_component_1.PodcastComponent],
-            //Required for paper audio module I downloaded from github
+            //Required for paper-audio-module
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 
         __metadata('design:paramtypes', [])
@@ -80,9 +95,9 @@ var NavigationModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule],
             //Declare components for Nav component to recognize other components
-            declarations: [navigation_component_1.NavigationComponent, horizontal_component_1.HorizontalComponent, login_component_1.LoginComponent, podcast_component_1.PodcastComponent, welcome_component_1.WelcomeComponent],
+            declarations: [navigation_component_1.NavigationComponent, horizontal_component_1.HorizontalComponent, login_component_1.LoginComponent, podcast_component_1.PodcastComponent, welcome_component_1.WelcomeComponent, gate_component_1.GateComponent],
             bootstrap: [navigation_component_1.NavigationComponent],
-            //Need to place "CUSTOM_ELEMENTS_SCHEMA " when PodcastComponent (because paper-audio-player element)
+            //Need to place "CUSTOM_ELEMENTS_SCHEMA " when using PodcastComponent (because paper-audio-player element)
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 
         __metadata('design:paramtypes', [])

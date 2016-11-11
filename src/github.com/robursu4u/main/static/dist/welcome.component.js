@@ -15,7 +15,7 @@ var WelcomeComponent = (function () {
     WelcomeComponent = __decorate([
         core_1.Component({
             selector: 'welcome-component',
-            template: "\n\n  <main>\n\n\n  \t<h1>Hey there neighbor.</h1>\n\n    <div>\n    Website for my up and coming podcast! I plan on working on the site daily so \n    check back often! We plan on uploading our first episodes soon; we just have to \n    edit some audio.\n\t</div>\n\n  </main>\n  ",
+            template: "\n\n  <main>\n\n\n  \t<h1>He is your president, deal with it.</h1>\n\n    <div>\n    Website for my up and coming podcast! I plan on working on the site daily so \n    check back often! We plan on uploading our first episodes soon; we just have to \n    edit some audio.\n\t  </div>\n\n  </main>\n  ",
             styles: ["\n\n  "]
         }), 
         __metadata('design:paramtypes', [])
