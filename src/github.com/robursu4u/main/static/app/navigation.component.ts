@@ -64,6 +64,9 @@ import { GateComponent } from './gate.component';
 </main>
   `,
   styles: [`
+    a{
+      text-decoration: none;
+    }
     .gate_container{
       height: 100%; 
       width: 100%;

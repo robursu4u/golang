@@ -97,7 +97,7 @@ export class PodcastComponent {
   
   casts = [
   { order: 1, title: 'Test Title for Bobcast', date: '10-14-2016', audio: './audio/eskmo.mp3', people: 'Robert, Joe, Jill, Dylan'},
-  { order: 2, title: 'Dealing with it', date: '10-15-2016', audio: './audio/song.mp3', people: 'All of america'}
+  { order: 2, title: 'Title 2', date: '10-15-2016', audio: './audio/song.mp3', people: 'All of america'}
   ];
 
   audio = '';
