@@ -34,13 +34,13 @@ import { GateComponent } from './gate.component';
 <div class="nav_container_outside">
   <div class="nav_container_inside">
     <horizontal-separator class="nav_horizontal"></horizontal-separator>
-    <h1 class="nav">Welcome</h1>
+    <a href="#welcome"><h1 class="nav">Welcome        </h1></a>
     <horizontal-separator class="nav_horizontal"></horizontal-separator>
-    <h1 class="nav">Listen Now</h1>
+    <a href="#listen_now"><h1 class="nav">Listen Now  </h1></a>
     <horizontal-separator class="nav_horizontal"></horizontal-separator>
-    <h1 class="nav">Login</h1>
+    <a href="#login"><h1 class="nav">Login            </h1></a>
     <horizontal-separator class="nav_horizontal"></horizontal-separator>
-    <h1 class="nav">Contact</h1>
+    <a href="#contact"><h1 class="nav">Contact        </h1></a>
     <horizontal-separator class="nav_horizontal"></horizontal-separator>
   </div>
 </div>
@@ -48,15 +48,15 @@ import { GateComponent } from './gate.component';
 <div class="everything_else_container">
   <div class="horizontal_main_page"><horizontal-separator></horizontal-separator></div>
 
-  <div class="welcome_container"><welcome-component></welcome-component></div>
+  <a name="welcome"><div class="welcome_container"><welcome-component></welcome-component></div></a>
 
   <div class="horizontal_main_page"><horizontal-separator></horizontal-separator></div>
 
-  <podcast-list></podcast-list>
+  <a name="listen_now"><podcast-list></podcast-list></a>
 
   <div class="horizontal_main_page"><horizontal-separator></horizontal-separator></div>
   
-  <login-module></login-module>
+  <a name="login"><login-module></login-module></a>
 
   <div class="horizontal_main_page"><horizontal-separator></horizontal-separator></div>
 </div>
@@ -137,7 +137,7 @@ import { GateComponent } from './gate.component';
 
 export class NavigationComponent {
   //Initialize css show in display option
-  show_gate = "show";
+  show_gate = "none";
 
   receiveEvent(event) {
     this.show_gate = "none";
