@@ -137,7 +137,7 @@ import { GateComponent } from './gate.component';
 
 export class NavigationComponent {
   //Initialize css show in display option
-  show_gate = "none";
+  show_gate = "show";
 
   receiveEvent(event) {
     this.show_gate = "none";

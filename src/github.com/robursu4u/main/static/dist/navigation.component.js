@@ -18,7 +18,7 @@ var core_1 = require('@angular/core');
 var NavigationComponent = (function () {
     function NavigationComponent() {
         //Initialize css show in display option
-        this.show_gate = "none";
+        this.show_gate = "show";
     }
     NavigationComponent.prototype.receiveEvent = function (event) {
         this.show_gate = "none";

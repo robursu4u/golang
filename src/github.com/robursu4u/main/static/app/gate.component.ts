@@ -69,12 +69,12 @@ import { Component, EventEmitter, Input, Output  } from '@angular/core';
       display: flex;           
       justify-content: center;
       width: 100%;
-
+      padding-bottom: 150px;
     }
     .chrome_container{
       background-color: #22262a;
       border-radius: 30px;
-      position: absolute; 
+      position: static; 
       bottom: 0;
       left: 0; 
       right: 0; 
