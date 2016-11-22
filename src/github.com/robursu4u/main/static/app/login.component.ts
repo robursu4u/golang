@@ -1,4 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { CookieService } from 'angular2-cookie/core';
+
+
+// Import RxJs required methods. Used in http.get method in getInfo
+import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+//Observable used to "observe" variables retreived for sent over REST service. 
+//Not used right now, but will later to verify values are what they're suppose to be (ie array, string, etc.)
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'login-module',
@@ -8,15 +18,25 @@ import { Component } from '@angular/core';
 <div clal="master_div">
   <div class="maintenance">Profile Creation<p></p>Under Maintenance</div>
   <div class="login_container">
-    <div>
+    <div>    
+            <!--Must use '?' after golang_data because angular doesn't evaluate golang_data since it equals null initially-->
+            <div>Other:{{golang_data?.Name}}{{golang_data?.First_Name}}{{golang_data?.Last_Name}}</div>
+
+            <button class="btn" (click)="getInfo()">Get Random Quote</button>
+
+            <div>You have started a user session: {{session-name?.test_user_info}} </div>
+
+            <button class="btn" (click)="getCookie()">Start Session</button>
+
+        
         <h1 class="header">Enter your user ID to access the site</h1>
-        <div >
+        <div>
             <form action="/login_user" method="GET">
                 <p>Enter username: <input type="text"     name="username"></p>
                 <p>Enter password: <input type="password" name="password"></p>
-                <p><input id="submit_login" type="submit"  value="Enter the site"></p>
+                <p><input id="submit_login" (click)="startSession()" type="submit"  value="Enter the site"></p>
             </form>
-              </div>
+        </div>
     </div>
     <p></p>  
     <div id="create_id_div">
@@ -31,45 +51,65 @@ import { Component } from '@angular/core';
     </div>
   </div>
 </div>
-
-
-
 </main>
 
   `,
-  styles: [`
-    .main{
-      pointer-events: none;
-
-    }
-    .header {
-      font-size: 30px;
-      margin: auto;
-      text-align: center;
-    }
-    .master_div{
-      position: relative;
-      width: 100%;
-      
-    }
-    .login_container {
-      border: 15px solid #0dba83;
-      padding: 80px;
-      border-radius: 50px;
-      filter: blur(8px) contrast(10) opacity(.5);
-    }
-    .maintenance {
-      position: relative;
-      font:  75px 'Noir'; 
-      left: 0;
-      top: 300px;
-      width: 100%;
-      text-align: center;
-      filter: brightness(10);
-    }
-  `]
+  styleUrls: ['app/css/login.component.css']
 })
+
 export class LoginComponent {
+
+
+  constructor (
+      private http: Http,
+      private _cookieService:CookieService
+  ){}
+  //constructor(private _cookieService:CookieService){} //cookie
+
+  //Profile creation pretty much done, just make it look nice and add errors if name, username, etc. are too short/long, exist, etc.
+  //Now we need to tie this to the 'Enter the Site' button.
+  //1. Login retreives mongodb
+  //2. Display logged in user info
+  //3. Setup session for constant logged in status
+
+  golang_data;
+  session_data;
+
+  
+  getInfo ()   {
+    this.http.get('/golang_get_url')
+      .map(res => res.json())
+      .subscribe(
+          data => this.golang_data = data,
+          err => this.logError(err),
+          () => console.log(this.golang_data)
+        );
+  }
+
+  //On enter username/password submit, cookie is retrieved and session starts. 
+  startSession ()   {
+    console.log(this)
+    this.http.get('/session-name')
+    .map(res => res.json()) //Change top JSON once data is changed to JSON from main.go script
+    .subscribe(
+        data => this.session_data = data,
+        err => this.logError(err),
+        () => console.log(this.session_data)
+    );
+  }
+
+  //Should hold "cookie information"
+  getCookie(test_user_info: string){
+    console.log(test_user_info);
+    
+    return this._cookieService.get(test_user_info);
+
+  
+  }
+
+  logError(err) {
+  console.error('There was an error: ' + err);
+  }
 
 }
 

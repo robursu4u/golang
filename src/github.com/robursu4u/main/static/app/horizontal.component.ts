@@ -35,6 +35,7 @@ import { Component } from '@angular/core';
       padding: 7px;
       right: 25%;
       width: 130%;
+      opacity: .6;
 
     }
   `]

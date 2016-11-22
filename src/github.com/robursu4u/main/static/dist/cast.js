@@ -1,8 +1,8 @@
 "use strict";
-var Cast = (function () {
-    function Cast() {
+var User = (function () {
+    function User() {
     }
-    return Cast;
+    return User;
 }());
-exports.Cast = Cast;
+exports.User = User;
 //# sourceMappingURL=cast.js.map

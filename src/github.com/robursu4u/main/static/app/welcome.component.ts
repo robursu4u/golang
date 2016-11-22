@@ -25,5 +25,7 @@ import { Component } from '@angular/core';
 
 })
 
-export class WelcomeComponent {}
+export class WelcomeComponent {
+
+}
 

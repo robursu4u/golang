@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var http_1 = require('@angular/http');
+var cookies_service_1 = require('angular2-cookie/services/cookies.service');
 var horizontal_component_1 = require('./horizontal.component');
 var login_component_1 = require('./login.component');
 var podcast_component_1 = require('./podcast.component');
@@ -65,6 +67,7 @@ var LoginModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule],
             declarations: [login_component_1.LoginComponent],
+            providers: [cookies_service_1.CookieService],
             bootstrap: [login_component_1.LoginComponent]
         }), 
         __metadata('design:paramtypes', [])
@@ -93,9 +96,10 @@ var NavigationModule = (function () {
     }
     NavigationModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, http_1.JsonpModule],
             //Declare components for Nav component to recognize other components
             declarations: [navigation_component_1.NavigationComponent, horizontal_component_1.HorizontalComponent, login_component_1.LoginComponent, podcast_component_1.PodcastComponent, welcome_component_1.WelcomeComponent, gate_component_1.GateComponent],
+            providers: [cookies_service_1.CookieService],
             bootstrap: [navigation_component_1.NavigationComponent],
             //Need to place "CUSTOM_ELEMENTS_SCHEMA " when using PodcastComponent (because paper-audio-player element)
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]

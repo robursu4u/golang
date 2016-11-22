@@ -1,7 +1,5 @@
 import { Component} from '@angular/core';
 
-import {Cast} from './cast';
-
 
 @Component({
   selector: 'podcast-list',

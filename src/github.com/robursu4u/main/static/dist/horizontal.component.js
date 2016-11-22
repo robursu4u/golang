@@ -16,7 +16,7 @@ var HorizontalComponent = (function () {
         core_1.Component({
             selector: 'horizontal-separator',
             template: "\n    \n<main>\n\n<div class=\"separate_container\"><div class=\"separate_left\"></div></div>\n<div class=\"separate_container\"><div class=\"separate_right\"></div></div>\n\n\n\n</main>\n\n  ",
-            styles: ["\n    .separate_left{\n      position: absolute;\n      background: #0dba83; \n      height: 8px;\n      width: 100%;\n      overflow: hidden;\n    }\n    .separate_right{\n      position: absolute;\n      background: #0dba83; \n      height: 8px;\n      width: 106.55%;\n      left:  20%;\n      overflow: hidden;\n    }    \n    .separate_container{\n      position: relative;\n      padding: 7px;\n      right: 25%;\n      width: 130%;\n\n    }\n  "]
+            styles: ["\n    .separate_left{\n      position: absolute;\n      background: #0dba83; \n      height: 8px;\n      width: 100%;\n      overflow: hidden;\n    }\n    .separate_right{\n      position: absolute;\n      background: #0dba83; \n      height: 8px;\n      width: 106.55%;\n      left:  20%;\n      overflow: hidden;\n    }    \n    .separate_container{\n      position: relative;\n      padding: 7px;\n      right: 25%;\n      width: 130%;\n      opacity: .6;\n\n    }\n  "]
         }), 
         __metadata('design:paramtypes', [])
     ], HorizontalComponent);

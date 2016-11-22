@@ -1,5 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 import { HorizontalComponent } from './horizontal.component';
 import { LoginComponent } from './login.component';
 import { PodcastComponent } from './podcast.component';
@@ -32,9 +35,11 @@ export class GateModule {}
 export class WelcomeModule {}
 
 @NgModule({
-  imports: [ BrowserModule ],
+  imports: [ BrowserModule ], //Import Http and Jsonp Module for REST service used in login component
   declarations: [ LoginComponent ],
+  providers: [ CookieService ],
   bootstrap: [ LoginComponent ]
+
 })
 export class LoginModule {}
 
@@ -48,9 +53,10 @@ export class LoginModule {}
 export class PodcastModule {}
 
 @NgModule({
-  imports: [ BrowserModule],
+  imports: [ BrowserModule, HttpModule, JsonpModule ],
   //Declare components for Nav component to recognize other components
   declarations: [ NavigationComponent, HorizontalComponent, LoginComponent, PodcastComponent, WelcomeComponent, GateComponent ],
+  providers: [ CookieService ],
   bootstrap: [ NavigationComponent ],
  //Need to place "CUSTOM_ELEMENTS_SCHEMA " when using PodcastComponent (because paper-audio-player element)
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

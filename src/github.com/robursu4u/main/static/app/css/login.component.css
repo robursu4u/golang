@@ -1,0 +1,34 @@
+.btn {
+  color: red;
+  background-color: red
+}
+.main{
+  //pointer-events: none;
+
+}
+.header {
+  font-size: 30px;
+  margin: auto;
+  text-align: center;
+}
+.master_div{
+  position: relative;
+  width: 100%;
+  
+}
+.login_container {
+  border: 15px solid #0dba83;
+  padding: 80px;
+  border-radius: 50px;
+  //filter: blur(8px) contrast(10) opacity(.5);
+}
+.maintenance {
+  position: relative;
+  display: none; 
+  font:  75px 'Noir'; 
+  left: 0;
+  top: 300px;
+  width: 100%;
+  text-align: center;
+  filter: brightness(10);
+}

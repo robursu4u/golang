@@ -7,94 +7,48 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"gorilla/mux"
+	"gorilla/sessions"
 	"log"
 	"net/http"
-	uuid "satori/go.uuid"
+	uuid "satori/go.uuid" //may remove if github.com/gorilla/sessions is good
 )
 
 func main() {
-	port := flag.Int("port", 8080, "port running main.go server")
+	port := flag.Int("port", 80, "port running main.go server")
 
 	//for gorilla mux
 	r := mux.NewRouter()
 
+	//Serves function and any
 	r.HandleFunc("/create_user", User_create).Methods("POST")
 	r.HandleFunc("/login_user", User_login).Methods("GET")
-	r.HandleFunc("/login_cookie", Get_user_info).Methods("GET")
+	r.HandleFunc("/session-name", User_session).Methods("GET")
 
-	//Serves this over browser? Then retrieve into html with angular I believe
+	//Serves this over browser as url resource. Then retrieve into html with angular's http get.
 	//Uses Handle instead of HandleFunc because we need to return something,
 	//Handle requires it to be wrapped in "handler"
-	r.Handle("/test_user_info", handler(Test_user_info)).Methods("GET")
+	r.Handle("/golang_get_url", handler(Test_user_info)).Methods("GET")
 
 	//Serves static files
 	http.Handle("/", r)
+
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 
 	//Console log and port to run on
 	log.Printf("Running on server %d", *port)
-	log.Fatal(http.ListenAndServe(":80", r))
+	log.Fatal(http.ListenAndServe(":8080", r))
 
 }
 
-func Get_user_info(res http.ResponseWriter, req *http.Request) {
-
-	cookie, err := req.Cookie("authuuid")
-	if err != nil {
-		res.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	parsed_cookie, err := uuid.FromString(cookie.Value)
-	if err != nil {
-		res.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-
-	//Connect to mongodb
-	session, err := mgo.Dial("mongodb://localhost:27017")
-	if err != nil {
-		panic(err)
-	}
-	defer session.Close()
-	session.SetMode(mgo.Monotonic, true)
-
-	var result interface{}
-
-	c := session.DB("mad").C("user")
-	err = c.Find(bson.M{"authuuid": parsed_cookie}).One(&result)
-	if err != nil {
-		fmt.Println("UUID authentication is successful")
-		/////////////////// HEEEEEERRRRRRRRRRRRRREEEEEEEEEEEEEEEEEEE
-		//test_info := User_struct{"Hmmmm that's interesting...", "Robert", "Ursu"}
-		//return test_info, nil
-
-	} else {
-		fmt.Println("UUID failure")
-		return
-	}
-}
-
-func Test_user_info(res http.ResponseWriter, req *http.Request) (interface{}, *handlerError) {
-
-	type Test_struct struct {
-		Name       string `json: "username"`
-		First_Name string `json: "first_name"`
-		Last_Name  string `json: "last_name"`
-	}
-
-	test_info := Test_struct{"Hmmmm that's interesting...", "Robert", "Ursu"}
-	return test_info, nil
-
-}
+//For user sessions.
+var store = sessions.NewCookieStore([]byte("something-very-secret"))
 
 //User info struct
 type User_struct struct {
-	AuthUUID   uuid.UUID `binary(16): "authuuid"`
-	Username   string    `json: "username"`
-	Password   string    `json: "password"`
-	First_Name string    `json: "first_name"`
-	Last_Name  string    `json: "last_name"`
+	Username   string `json: "username"`
+	Password   string `json: "password"`
+	First_Name string `json: "first_name"`
+	Last_Name  string `json: "last_name"`
 }
 
 //Error struct
@@ -104,11 +58,42 @@ type handlerError struct {
 	Code    int
 }
 
+//Test user info struct
+type Test_struct struct {
+	Name       string `json: "username"`
+	First_Name string `json: "first_name"`
+	Last_Name  string `json: "last_name"`
+}
+
+//Test info
+func Test_user_info(res http.ResponseWriter, req *http.Request) (interface{}, *handlerError) {
+
+	golang_get_url := Test_struct{"Hmmmm that's interesting...", "Robert", "Ursu"}
+	return golang_get_url, nil
+}
+
+//New session
+func User_session(res http.ResponseWriter, req *http.Request) {
+
+	session, err := store.Get(req, "session-name")
+	if err != nil {
+		http.Error(res, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	session.Values["test_user_info"] = "ya gonna go far kid"
+	session.Values[45] = 45
+
+	session.Save(req, res)
+	return
+
+}
+
 // a custom type that we can use for handling errors and formatting responses
 type handler func(w http.ResponseWriter, r *http.Request) (interface{}, *handlerError)
 
 // attach the standard ServeHTTP method to our handler so the http library can call it
-//"Handle" func reqruies ServeHTTP methodc
+//"Handle" func requires ServeHTTP method
 func (fn handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// here we could do some prep work before calling the handler if we wanted to
 
@@ -169,7 +154,6 @@ func User_create(res http.ResponseWriter, req *http.Request) {
 	}
 
 	err = c.Insert(&User_struct{
-		AuthUUID:   uuid.NewV4(),
 		Username:   req.FormValue("username"),
 		Password:   req.FormValue("password"),
 		First_Name: req.FormValue("first_name"),
@@ -180,11 +164,13 @@ func User_create(res http.ResponseWriter, req *http.Request) {
 		http.Redirect(res, req, "/", 302)
 
 	} else {
-		http.Redirect(res, req, "/welcome.html", 302)
+		http.Redirect(res, req, "/", 302)
 		fmt.Println(req.FormValue("username"))
 	}
 
 }
+
+//Login for user. Tie to golang_get_url and return user data to angular.
 
 func User_login(res http.ResponseWriter, req *http.Request) {
 
@@ -223,10 +209,50 @@ func User_login(res http.ResponseWriter, req *http.Request) {
 			fmt.Println("Password you entered for this username does not match. Try again.")
 			return
 		} else {
-			http.Redirect(res, req, "/welcome.html", 302)
-
+			//Get ajax to work with submit button, or page resets, thus angular won't be able to retreive data.
+			http.Redirect(res, req, "/", 302)
 			fmt.Println("You have logged in.")
 			return
 		}
+	}
+}
+
+//Original session with Joey. Only for cookies though. Use sessions instead.
+//Sessions are more secure and can retreive server side info.
+func Get_user_info(res http.ResponseWriter, req *http.Request) {
+
+	cookie, err := req.Cookie("authuuid")
+	if err != nil {
+		res.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	parsed_cookie, err := uuid.FromString(cookie.Value)
+	if err != nil {
+		res.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	//Connect to mongodb
+	session, err := mgo.Dial("mongodb://localhost:27017")
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+	session.SetMode(mgo.Monotonic, true)
+
+	var result interface{}
+
+	c := session.DB("mad").C("user")
+	err = c.Find(bson.M{"authuuid": parsed_cookie}).One(&result)
+	if err != nil {
+		fmt.Println("UUID authentication is successful")
+		/////////////////// HEEEEEERRRRRRRRRRRRRREEEEEEEEEEEEEEEEEEE
+		//golang_get_url := User_struct{"Hmmmm that's interesting...", "Robert", "Ursu"}
+		//return golang_get_url, nil
+
+	} else {
+		fmt.Println("UUID failure")
+		return
 	}
 }
